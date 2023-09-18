@@ -37,6 +37,7 @@ function showData(response) {
 
   let tempretureElement = document.querySelector("#tempreture");
   tempretureElement.innerHTML = Math.round(response.data.main.temp);
+  celsiusDegree = tempretureElement.innerHTML;
 
   let dateElement = document.querySelector("#date");
   dateElement.innerHTML = showDate(response.data.dt * 1000);
@@ -53,8 +54,47 @@ function showData(response) {
   );
 }
 
-let apiKey = "6703553b0a2c80f0cf857a38e4c2a027";
-let city = "bangkok";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric `;
+function search(city) {
+  let apiKey = "6703553b0a2c80f0cf857a38e4c2a027";
 
-axios.get(apiUrl).then(showData);
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric `;
+  axios.get(apiUrl).then(showData);
+}
+
+function searchHandle(event) {
+  event.preventDefault();
+  let cityNameElement = document.querySelector("#city-name");
+
+  search(cityNameElement.value);
+}
+
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+
+  let celsius = document.querySelector("#tempreture");
+  let toFahrenheit = (celsiusDegree * 9) / 5 + 32;
+  celsius.innerHTML = Math.round(toFahrenheit);
+}
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let fahrenheit = document.querySelector("#tempreture");
+  fahrenheit.innerHTML = celsiusDegree;
+}
+
+let celsiusDegree = null;
+
+let formElement = document.querySelector("#search-form");
+formElement.addEventListener("submit", searchHandle);
+
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", convertToCelsius);
+
+search("kerman");

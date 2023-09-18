@@ -35,3 +35,13 @@ li {
   position: relative;
   top: -18px;
 }
+
+.active{
+    color:rgba(39, 33, 66);
+    cursor:default ;
+    text-decoration: none;
+}
+
+.active:hover{
+    text-decoration: none;
+}
