@@ -36,12 +36,24 @@ li {
   top: -18px;
 }
 
-.active{
-    color:rgba(39, 33, 66);
-    cursor:default ;
-    text-decoration: none;
+.active {
+  color: rgba(39, 33, 66);
+  cursor: default;
+  text-decoration: none;
 }
 
-.active:hover{
-    text-decoration: none;
+.active:hover {
+  text-decoration: none;
+}
+
+.weather-forecast {
+  text-align: center;
+  color: rgb(86, 82, 82);
+  font-size: 17px;
+}
+.weather-forecast-tempreture-min {
+  opacity: 0.4;
+}
+.weather-forecast-tempreture {
+  font-size: 14px;
 }

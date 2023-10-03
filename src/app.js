@@ -52,12 +52,14 @@ function showData(response) {
     "alt",
     ` https://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`
   );
+  getForecast(response.data.coord);
 }
 
 function search(city) {
   let apiKey = "6703553b0a2c80f0cf857a38e4c2a027";
 
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric `;
+  console.log(apiUrl);
   axios.get(apiUrl).then(showData);
 }
 
@@ -66,6 +68,14 @@ function searchHandle(event) {
   let cityNameElement = document.querySelector("#city-name");
 
   search(cityNameElement.value);
+}
+
+function getForecast(coordinates) {
+  let apiKey = "c8735bb7e8e2f8d8a38c7501f3cd47d3";
+
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+  console.log(apiUrl);
 }
 
 function convertToFahrenheit(event) {
@@ -84,6 +94,55 @@ function convertToCelsius(event) {
   fahrenheitLink.classList.remove("active");
   let fahrenheit = document.querySelector("#tempreture");
   fahrenheit.innerHTML = celsiusDegree;
+}
+
+function formatForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = [
+    " Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  return days[day];
+}
+
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forcastDaily = response.data.daily;
+
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  forcastDaily.forEach(function (forcastDaily, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
+              <div class="col-2">
+                <div class="weather-forecast-day">${formatForecastDay(
+                  forcastDaily.dt
+                )}</div>
+                <div class="weather-forecast-img"> <img src="https://openweathermap.org/img/wn/${
+                  forcastDaily.weather[0].icon
+                }@2x.png"> </div>
+                <div class="weather-forecast-tempreture">
+                  <span class="weather-forecast-tempreture-max">${Math.round(
+                    forcastDaily.temp.max
+                  )}</span>
+                  <span class="weather-forecast-tempreture-min">${Math.round(
+                    forcastDaily.temp.min
+                  )}</span>
+                </div>
+              </div>
+              
+            `;
+    }
+  });
+  forecastElement.innerHTML = forecastHTML + "</div>";
 }
 
 let celsiusDegree = null;
