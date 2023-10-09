@@ -81,15 +81,7 @@ function getForecast(coordinates) {
 function formatForecastDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
-  let days = [
-    " Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  let days = [" Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   return days[day];
 }
 
@@ -100,7 +92,7 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   forcastDaily.forEach(function (forcastDaily, index) {
-    if (index < 5) {
+    if (index < 6) {
       forecastHTML =
         forecastHTML +
         `
@@ -108,16 +100,16 @@ function displayForecast(response) {
                 <div class="weather-forecast-day">${formatForecastDay(
                   forcastDaily.dt
                 )}</div>
-                <div class="weather-forecast-img"> <img src="https://openweathermap.org/img/wn/${
-                  forcastDaily.weather[0].icon
-                }@2x.png"> </div>
+               <img class="weather-forecast-img" src="https://openweathermap.org/img/wn/${
+                 forcastDaily.weather[0].icon
+               }@2x.png" > 
                 <div class="weather-forecast-tempreture">
                   <span class="weather-forecast-tempreture-max">${Math.round(
                     forcastDaily.temp.max
-                  )}</span>
+                  )}°</span>
                   <span class="weather-forecast-tempreture-min">${Math.round(
                     forcastDaily.temp.min
-                  )}</span>
+                  )}°</span>
                 </div>
               </div>
               

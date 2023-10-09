@@ -13,7 +13,7 @@ body {
 }
 
 h1 {
-  color: #272142;
+  color: #1a162cb2;
   margin-bottom: 0;
   font-size: 38px;
   font-weight: 700;
@@ -36,24 +36,26 @@ li {
   top: -18px;
 }
 
-.active {
-  color: rgba(39, 33, 66);
-  cursor: default;
-  text-decoration: none;
-}
-
-.active:hover {
-  text-decoration: none;
+.humidity {
+  padding-top: 25px;
 }
 
 .weather-forecast {
-  text-align: center;
+  margin-top: 20px;
   color: rgb(86, 82, 82);
-  font-size: 17px;
+  text-align: center;
+}
+.weather-forecast-day {
+  font-size: 16px;
 }
 .weather-forecast-tempreture-min {
+  padding-left: 3px;
   opacity: 0.4;
 }
 .weather-forecast-tempreture {
   font-size: 14px;
+}
+.weather-forecast-img {
+  padding-left: 0;
+  width: 50px;
 }
