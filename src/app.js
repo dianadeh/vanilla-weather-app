@@ -78,24 +78,6 @@ function getForecast(coordinates) {
   console.log(apiUrl);
 }
 
-function convertToFahrenheit(event) {
-  event.preventDefault();
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-
-  let celsius = document.querySelector("#tempreture");
-  let toFahrenheit = (celsiusDegree * 9) / 5 + 32;
-  celsius.innerHTML = Math.round(toFahrenheit);
-}
-
-function convertToCelsius(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let fahrenheit = document.querySelector("#tempreture");
-  fahrenheit.innerHTML = celsiusDegree;
-}
-
 function formatForecastDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -118,7 +100,7 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   forcastDaily.forEach(function (forcastDaily, index) {
-    if (index < 6) {
+    if (index < 5) {
       forecastHTML =
         forecastHTML +
         `
@@ -145,15 +127,7 @@ function displayForecast(response) {
   forecastElement.innerHTML = forecastHTML + "</div>";
 }
 
-let celsiusDegree = null;
-
 let formElement = document.querySelector("#search-form");
 formElement.addEventListener("submit", searchHandle);
-
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", convertToFahrenheit);
-
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", convertToCelsius);
 
 search("kerman");
